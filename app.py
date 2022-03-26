@@ -31,7 +31,8 @@ def halo():
         [[p1, p2, p3, p4, p5, p6, p7, p8]], columns=col))
     res = {
         'res': str(predicted),
-        'info': "okeoke"
+        'info': "okeoke",
+        'check': f"params {p1}, params {p2}, params {p3}, params {p4}, params {p5}, params {p6}, params {p7}, params {p8}"
     }
     return res
 
