@@ -1,6 +1,5 @@
 from flask import Flask, jsonify, request
 import pickle
-import numpy as np
 import pandas as pd
 
 with open("models/cluster_kmeans_model.pkl", "rb") as cluster_model_file:
@@ -42,4 +41,4 @@ def hello():
     return "<h1> Hello, World! </h1>"
 
 
-app.run(debug=False)
+# app.run(host= , debug=False)
