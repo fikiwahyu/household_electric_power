@@ -1,4 +1,3 @@
-from asyncio.windows_events import NULL
 from flask import Flask, jsonify, request
 import pickle
 import numpy as np
