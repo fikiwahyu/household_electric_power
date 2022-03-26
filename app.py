@@ -42,7 +42,7 @@ def hello():
     return "<h1> Hello, World! </h1>"
 
 
-@app.route("/postest")
+@app.route("/postest", methods=['GET', 'POST'])
 def predict():
     p1 = request.form['global_active_power']
     p2 = request.form['global_reactive_power']
