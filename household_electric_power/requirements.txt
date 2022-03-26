@@ -1,5 +1,0 @@
-waitress
-numpy
-pandas
-flask
-scikit-learn
