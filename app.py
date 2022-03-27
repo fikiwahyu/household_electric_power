@@ -1,15 +1,23 @@
 from flask import Flask, jsonify, request
 import pickle
 import pandas as pd
+from flask_cors import CORS
 
 with open("models/cluster_kmeans_model.pkl", "rb") as cluster_model_file:
     clustering = pickle.load(cluster_model_file)
 
 
 app = Flask(__name__)
+CORS(app)
+cors = CORS(app, resources={r"/*":
+                            {
+                                "origins": "*"
+                            }
+                            }
+            )
 
 
-@app.route("/", methods=['GET', 'POST'])
+@ app.route("/", methods=['GET', 'POST'])
 def halo():
     p1 = request.values.get('global_active_power')
     p2 = request.values.get('global_reactive_power')
@@ -37,12 +45,12 @@ def halo():
     return res
 
 
-@app.route("/hello")
+@ app.route("/hello")
 def hello():
     return "<h1> Hello, World! </h1>"
 
 
-@app.route("/postest", methods=['GET', 'POST'])
+@ app.route("/postest", methods=['GET', 'POST'])
 def predict():
     p1 = request.form['global_active_power']
     p2 = request.form['global_reactive_power']
