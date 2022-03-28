@@ -26,11 +26,20 @@ def halo():
     p5 = request.values.get('sub_metering_1')
     p6 = request.values.get('sub_metering_2')
     p7 = request.values.get('sub_metering_3')
-    if ((p1 != None) & (p2 != None) & (p3 != None) & (p4 != None) & (p5 != None) & (p6 != None) & (p7 != None)):
-        p1, p2, p3, p4, p5, p6, p7 = int(p1), int(p2), int(
-            p3), int(p4), int(p5), int(p6), int(p7)
-    else:
-        p1, p2, p3, p4, p5, p6, p7 = 0, 0, 0, 0, 0, 0, 0
+
+    p1 = float(p1) if p1 != None else 0
+    p2 = float(p2) if p2 != None else 0
+    p3 = float(p3) if p3 != None else 0
+    p4 = float(p4) if p4 != None else 0
+    p5 = float(p5) if p5 != None else 0
+    p6 = float(p6) if p6 != None else 0
+    p7 = float(p7) if p7 != None else 0
+
+    # if ((p1 != None) & (p2 != None) & (p3 != None) & (p4 != None) & (p5 != None) & (p6 != None) & (p7 != None)):
+    #     p1, p2, p3, p4, p5, p6, p7 = float(p1), float(p2), float(
+    #         p3), float(p4), float(p5), float(p6), float(p7)
+    # else:
+    #     p1, p2, p3, p4, p5, p6, p7 = 0, 0, 0, 0, 0, 0, 0
     p8 = ((p1*1000/60) - p5 - p6 - p7)
     col = ['Global_active_power', 'Global_reactive_power', 'Voltage',
            'Global_intensity', 'Sub_metering_1', 'Sub_metering_2',
