@@ -1,10 +1,15 @@
+from email.policy import default
 from flask import Flask, jsonify, request
 import pickle
 import pandas as pd
 from flask_cors import CORS
+from sklearn import datasets
 
 with open("models/cluster_kmeans_model.pkl", "rb") as cluster_model_file:
     clustering = pickle.load(cluster_model_file)
+
+with open("models/clf_model.pkl", "rb") as cluster_model_file:
+    credits = pickle.load(cluster_model_file)
 
 
 app = Flask(__name__)
@@ -54,9 +59,38 @@ def halo():
     return res
 
 
-@ app.route("/hello")
-def hello():
-    return "<h1> Hello, World! </h1>"
+@ app.route("/checkapproval", methods=['GET', 'POST'])
+def apicredits():
+    credits_dataset = {
+        'age': [request.values.get('age')],
+        'job': [request.values.get('job')],
+        'marital': [request.values.get('marital')],
+        'education': [request.values.get('education')],
+        'default': [request.values.get('default')],
+        'housing': [request.values.get('housing')],
+        'loan': [request.values.get('loan')],
+        'contact': [request.values.get('contact')],
+        'month': [request.values.get('month')],
+        'day_of_week': [request.values.get('day_of_week')],
+        'duration': [request.values.get('duration')],
+        'campaign': [request.values.get('campaign')],
+        'pdays': [request.values.get('pdays')],
+        'previous': [request.values.get('previous')],
+        'poutcome': [request.values.get('poutcome')],
+        'emp.var.rate': [request.values.get('empvarrate')],
+        'cons.price.idx': [request.values.get('conspriceidx')],
+        'cons.conf.idx': [request.values.get('consconfidx')],
+        'euribor3m': [request.values.get('euribor3m')],
+        'nr.employed': [request.values.get('nremployed')],
+    }
+
+    approval = credits.predict(pd.DataFrame(credits_dataset))
+    res = {
+        'res': str(approval),
+        # 'info': "okeoke",
+        # 'check': f"params {p1}, params {p2}, params {p3}, params {p4}, params {p5}, params {p6}, params {p7}, params {p8}"
+    }
+    return res
 
 
 @ app.route("/postest", methods=['GET', 'POST'])
